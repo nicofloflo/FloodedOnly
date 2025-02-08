@@ -6,12 +6,12 @@ namespace FloodedOnly.Patches;
 
 public class Flood
         {
-            [HarmonyPatch(typeof(StartOfRound),"SetPlanetsWeather")]
+            [HarmonyPatch(typeof(StartOfRound), "SetPlanetsWeather")]
             [HarmonyPrefix]
-            public static bool SetPlanetsWeather()
+            public static bool SetPlanetsWeather(StartOfRound __instance)
             {
                 
-                foreach (SelectableLevel val in StartOfRound.Instance.levels)
+                foreach (SelectableLevel val in __instance.levels)
                 {
                     val.currentWeather = (LevelWeatherType)4;
                     Debug.Log($"SetPlanetsWeather: {val.PlanetName + val.currentWeather}");
@@ -20,6 +20,12 @@ public class Flood
                 return false;
             }
 
+        }
+
+
+public class NewFlooded
+{
+    
             [HarmonyPatch(typeof(FloodWeather), "OnEnable")]
             [HarmonyPrefix]
             public static void SetToCurrentLevelWeather()
@@ -46,10 +52,10 @@ public class Flood
                         
                 
             }
-
+            
             [HarmonyPatch(typeof(FloodWeather), "OnGlobalTimeSync")]
             [HarmonyPrefix]
-
+            
             public static void SetSync()
             {
                 if (TimeOfDay.Instance.currentLevel.levelID == 9)
@@ -71,7 +77,7 @@ public class Flood
                     
                 }
             }
-
+            
             [HarmonyPatch(typeof(FloodWeather), "Update")]
             [HarmonyPrefix]
             public static void Update()
@@ -99,6 +105,4 @@ public class Flood
                 }
                 
             }
-        }
-
-                
+}

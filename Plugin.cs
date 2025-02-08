@@ -12,7 +12,7 @@ public class Plugin : BaseUnityPlugin
     
     private const string PLUGIN_GUID = "FloodedOnly";
     private const string PLUGIN_NAME = "Floodedonly";
-    private const string PLUGIN_VERSION = "1.0.1";
+    private const string PLUGIN_VERSION = "1.1.2";
 
 
 
@@ -23,6 +23,7 @@ public class Plugin : BaseUnityPlugin
         // Plugin startup logic
         Debug.Log("I am a Cowboy");
         harmony.PatchAll(typeof(Flood));
+        harmony.PatchAll(typeof(NewFlooded));
         
     }
 }
